@@ -64,7 +64,7 @@ class _SafeAuditState extends State<SafeAudit> {
                         child: ListView.builder(
                           itemCount: auditData.length,
                           itemBuilder: (context, index) {
-                            return AuditCard(
+                            return CurrentAuditCard(
                               title: auditData[index]['title'] ?? '',
                               location: auditData[index]['location'] ?? '',
                               depositDate:
@@ -78,7 +78,7 @@ class _SafeAuditState extends State<SafeAudit> {
                     : const PastAudit(),
               ],
             ),
-            const Positioned(bottom: 50, right: 16, child: AddButton())
+            selectedOption == "Current Audit" ? const AddButton() : Container()
           ]),
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safe_audit_app/pages/new_safe_audit.dart';
 import 'package:safe_audit_app/pages/safe_audit.dart';
 
 void main() {
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SafeAudit(),
+      home: NewSafeAudit(),
     );
   }
 }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class AuditCard extends StatefulWidget {
+class CurrentAuditCard extends StatefulWidget {
   final String title;
   final String location;
   final String depositDate;
   final String depositor;
   final String date;
 
-  const AuditCard(
+  const CurrentAuditCard(
       {super.key,
       required this.title,
       required this.location,
@@ -16,10 +16,10 @@ class AuditCard extends StatefulWidget {
       required this.date});
 
   @override
-  State<AuditCard> createState() => _AuditCardState();
+  State<CurrentAuditCard> createState() => _CurrentAuditCardState();
 }
 
-class _AuditCardState extends State<AuditCard> {
+class _CurrentAuditCardState extends State<CurrentAuditCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,7 +39,7 @@ class _AuditCardState extends State<AuditCard> {
                   ),
                   Text(
                     widget.title,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Color(0xFF26467F), fontWeight: FontWeight.w600),
                   ),
                   Text(widget.location),
