@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:safe_audit_app/components/app_bar.dart';
 import 'package:safe_audit_app/components/current_audit_card.dart';
 import 'package:safe_audit_app/components/past_audit.dart';
 import 'package:safe_audit_app/components/selective_button.dart';
+import '../components/add_button.dart';
+import '../components/main_app_bar.dart';
 
 class SafeAudit extends StatefulWidget {
   const SafeAudit({super.key});
@@ -14,7 +15,6 @@ class SafeAudit extends StatefulWidget {
 class _SafeAuditState extends State<SafeAudit> {
   String selectedOption = "Current Audit";
 
-  // Example data for multiple audit cards
   List<Map<String, String>> auditData = [
     {
       'title': 'Title 1',
@@ -35,47 +35,51 @@ class _SafeAuditState extends State<SafeAudit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBar(
+      appBar: const MainAppBar(
         title: 'Safe Audit',
       ),
       body: Container(
         color: Colors.grey[300],
         child: SafeArea(
-          child: Column(
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                  color: Color(0xFF26467F),
+          child: Stack(children: [
+            Column(
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    color: Color(0xFF26467F),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: buildTextButton("Current Audit",
+                              selectedOption, handleButtonPress)),
+                      Expanded(
+                          child: buildTextButton(
+                              "Past Audit", selectedOption, handleButtonPress)),
+                    ],
+                  ),
                 ),
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: buildTextButton("Current Audit", selectedOption,
-                            handleButtonPress)),
-                    Expanded(
-                        child: buildTextButton(
-                            "Past Audit", selectedOption, handleButtonPress)),
-                  ],
-                ),
-              ),
-              selectedOption == "Current Audit"
-                  ? Expanded(
-                      child: ListView.builder(
-                        itemCount: auditData.length,
-                        itemBuilder: (context, index) {
-                          return AuditCard(
-                            title: auditData[index]['title'] ?? '',
-                            location: auditData[index]['location'] ?? '',
-                            depositDate: auditData[index]['depositDate'] ?? '',
-                            depositor: auditData[index]['depositor'] ?? '',
-                            date: auditData[index]['date'] ?? '',
-                          );
-                        },
-                      ),
-                    )
-                  : const PastAudit(),
-            ],
-          ),
+                selectedOption == "Current Audit"
+                    ? Expanded(
+                        child: ListView.builder(
+                          itemCount: auditData.length,
+                          itemBuilder: (context, index) {
+                            return AuditCard(
+                              title: auditData[index]['title'] ?? '',
+                              location: auditData[index]['location'] ?? '',
+                              depositDate:
+                                  auditData[index]['depositDate'] ?? '',
+                              depositor: auditData[index]['depositor'] ?? '',
+                              date: auditData[index]['date'] ?? '',
+                            );
+                          },
+                        ),
+                      )
+                    : const PastAudit(),
+              ],
+            ),
+            const Positioned(bottom: 50, right: 16, child: AddButton())
+          ]),
         ),
       ),
     );
