@@ -121,6 +121,8 @@ class _SafeAuditState extends State<SafeAudit>
               );
             })),
       ),
+
+
       bottomNavigationBar: BottomAppBar(
         color: Colors.white,
         child: Row(
@@ -136,7 +138,7 @@ class _SafeAuditState extends State<SafeAudit>
                   shape: BoxShape.rectangle,
                   color: _tabController.index == 1
                       ? const Color(0xFFDDE9FF)
-                      : Colors.transparent,
+                      : Colors.white,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -173,7 +175,7 @@ class _SafeAuditState extends State<SafeAudit>
                   shape: BoxShape.rectangle,
                   color: _tabController.index == 0
                       ? const Color(0xFFDDE9FF)
-                      : Colors.transparent,
+                      : Colors.white,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -184,7 +186,7 @@ class _SafeAuditState extends State<SafeAudit>
                       height: 22,
                       color: _tabController.index == 0
                           ? const Color(0xFF26467F)
-                          : Color(0xFFA3A3A3),
+                          : Colors.black,
                     ),
                     const SizedBox(width: 8),
                     Text(
@@ -192,7 +194,7 @@ class _SafeAuditState extends State<SafeAudit>
                       style: TextStyle(
                         color: _tabController.index == 0
                             ? const Color(0xFF26467F)
-                            : Color(0xFFA3A3A3),
+                            : Colors.black,
                       ),
                     ),
                   ],

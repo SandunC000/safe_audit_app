@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:safe_audit_app/components/secondary_app_bar.dart';
 import 'package:safe_audit_app/components/location_text.dart';
+import 'package:safe_audit_app/pages/start_safe_audit.dart';
 
 class NewSafeAudit extends StatefulWidget {
   const NewSafeAudit({super.key});
@@ -73,8 +74,8 @@ class _NewSafeAuditState extends State<NewSafeAudit> {
                 InkWell(
                   onTap: (){
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const NewSafeAudit(),
-                        fullscreenDialog: true));      
+                        builder: (context) => const StartSafeAudit(),
+                        fullscreenDialog: true));
                   },
                   child: Container(
                     padding: const EdgeInsets.all(16.0),
