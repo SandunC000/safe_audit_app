@@ -92,36 +92,34 @@ class _SafeAuditState extends State<SafeAudit>
                 ],
               ),
             ),
-            body: Stack(
-              children: [
-                TabBarView(
-                  children: [
-                    Container(
-                      color: Colors.grey[300],
-                      child: ListView.builder(
-                        itemCount: auditData.length,
-                        itemBuilder: (context, index) {
-                          return CurrentAuditCard(
-                            title: auditData[index]['title'] ?? '',
-                            location: auditData[index]['location'] ?? '',
-                            depositDate: auditData[index]['depositDate'] ?? '',
-                            depositor: auditData[index]['depositor'] ?? '',
-                            date: auditData[index]['date'] ?? '',
-                          );
-                        },
+            body: Builder(builder: (BuildContext context) {
+              return Stack(
+                children: [
+                  TabBarView(
+                    children: [
+                      Container(
+                        color: Colors.grey[300],
+                        child: ListView.builder(
+                          itemCount: auditData.length,
+                          itemBuilder: (context, index) {
+                            return CurrentAuditCard(
+                              title: auditData[index]['title'] ?? '',
+                              location: auditData[index]['location'] ?? '',
+                              depositDate:
+                                  auditData[index]['depositDate'] ?? '',
+                              depositor: auditData[index]['depositor'] ?? '',
+                              date: auditData[index]['date'] ?? '',
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                    const PastAuditCard(),
-                  ],
-                ),
-                if (_tabController.index == 0)
-                  const Positioned(
-                    bottom: 20,
-                    right: 16,
-                    child: AddButton(),
+                      const PastAuditCard(),
+                    ],
                   ),
-              ],
-            )),
+                  _tabController.index == 0 ? const AddButton() : Container()
+                ],
+              );
+            })),
       ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.white,
@@ -137,8 +135,8 @@ class _SafeAuditState extends State<SafeAudit>
                   borderRadius: BorderRadius.circular(50),
                   shape: BoxShape.rectangle,
                   color: _tabController.index == 1
-                      ? Color(0xFFDDE9FF)
-                      : Colors.white,
+                      ? const Color(0xFFDDE9FF)
+                      : Colors.transparent,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -147,15 +145,18 @@ class _SafeAuditState extends State<SafeAudit>
                       'lib/images/deposit.png',
                       width: 26,
                       height: 22,
+                      color: _tabController.index == 1
+                          ? const Color(0xFF26467F)
+                          : Color(0xFFA3A3A3),
                     ),
                     const SizedBox(width: 8),
                     Text(
                       "Deposits",
-                      style: TextStyle(
-                        color: _tabController.index == 1
-                            ? const Color(0xFF26467F)
-                            : Colors.black,
-                      ),
+                        style: TextStyle(
+                          color: _tabController.index == 1
+                              ? const Color(0xFF26467F)
+                              : Color(0xFFA3A3A3),
+                        )
                     ),
                   ],
                 ),
@@ -170,7 +171,9 @@ class _SafeAuditState extends State<SafeAudit>
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
                   shape: BoxShape.rectangle,
-                  color: Colors.red,
+                  color: _tabController.index == 0
+                      ? const Color(0xFFDDE9FF)
+                      : Colors.transparent,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -179,11 +182,18 @@ class _SafeAuditState extends State<SafeAudit>
                       'lib/images/deposit.png',
                       width: 26,
                       height: 22,
+                      color: _tabController.index == 0
+                          ? const Color(0xFF26467F)
+                          : Color(0xFFA3A3A3),
                     ),
                     const SizedBox(width: 8),
-                    const Text(
+                    Text(
                       "Safe Audit",
-                      style: TextStyle(),
+                      style: TextStyle(
+                        color: _tabController.index == 0
+                            ? const Color(0xFF26467F)
+                            : Color(0xFFA3A3A3),
+                      ),
                     ),
                   ],
                 ),
