@@ -1,9 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:safe_audit_app/components/current_audit_card.dart';
-import 'package:safe_audit_app/components/past_audit.dart';
-import 'package:safe_audit_app/components/selective_button.dart';
-import '../components/add_button.dart';
-import '../components/main_app_bar.dart';
+import 'package:safe_audit_app/components/past_audit_card.dart';
+import 'package:safe_audit_app/components/add_button.dart';
 
 class SafeAudit extends StatefulWidget {
   const SafeAudit({super.key});
@@ -12,9 +12,9 @@ class SafeAudit extends StatefulWidget {
   State<SafeAudit> createState() => _SafeAuditState();
 }
 
-class _SafeAuditState extends State<SafeAudit> {
-  String selectedOption = "Current Audit";
-
+class _SafeAuditState extends State<SafeAudit>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
   List<Map<String, String>> auditData = [
     {
       'title': 'Title 1',
@@ -33,61 +33,165 @@ class _SafeAuditState extends State<SafeAudit> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MainAppBar(
-        title: 'Safe Audit',
-      ),
-      body: Container(
-        color: Colors.grey[300],
-        child: SafeArea(
-          child: Stack(children: [
-            Column(
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF26467F),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: buildTextButton("Current Audit",
-                              selectedOption, handleButtonPress)),
-                      Expanded(
-                          child: buildTextButton(
-                              "Past Audit", selectedOption, handleButtonPress)),
-                    ],
+      body: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: const Color(0xFF26467F),
+              elevation: 0,
+              leading: IconButton(
+                onPressed: () {
+                  // Navigator.pop(context);
+                },
+                icon: Image.asset(
+                  'lib/images/menu.png',
+                  width: 26,
+                  height: 22,
+                ),
+              ),
+              centerTitle: true,
+              title: const Text("Safe Audit",
+                  style: TextStyle(
+                    color: Colors.white,
+                  )),
+              actions: [
+                TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    "Filter",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 17,
+                    ),
                   ),
                 ),
-                selectedOption == "Current Audit"
-                    ? Expanded(
-                        child: ListView.builder(
-                          itemCount: auditData.length,
-                          itemBuilder: (context, index) {
-                            return CurrentAuditCard(
-                              title: auditData[index]['title'] ?? '',
-                              location: auditData[index]['location'] ?? '',
-                              depositDate:
-                                  auditData[index]['depositDate'] ?? '',
-                              depositor: auditData[index]['depositor'] ?? '',
-                              date: auditData[index]['date'] ?? '',
-                            );
-                          },
-                        ),
-                      )
-                    : const PastAudit(),
               ],
+              bottom: const TabBar(
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.white,
+                indicatorColor: Colors.white,
+                indicatorSize: TabBarIndicatorSize.tab,
+                indicatorWeight: 5,
+                tabs: [
+                  Tab(text: 'Current Audit'),
+                  Tab(text: 'Past Audit'),
+                ],
+              ),
             ),
-            selectedOption == "Current Audit" ? const AddButton() : Container()
-          ]),
+            body: Stack(
+              children: [
+                TabBarView(
+                  children: [
+                    Container(
+                      color: Colors.grey[300],
+                      child: ListView.builder(
+                        itemCount: auditData.length,
+                        itemBuilder: (context, index) {
+                          return CurrentAuditCard(
+                            title: auditData[index]['title'] ?? '',
+                            location: auditData[index]['location'] ?? '',
+                            depositDate: auditData[index]['depositDate'] ?? '',
+                            depositor: auditData[index]['depositor'] ?? '',
+                            date: auditData[index]['date'] ?? '',
+                          );
+                        },
+                      ),
+                    ),
+                    const PastAuditCard(),
+                  ],
+                ),
+                if (_tabController.index == 0)
+                  const Positioned(
+                    bottom: 20,
+                    right: 16,
+                    child: AddButton(),
+                  ),
+              ],
+            )),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.45,
+                height: 90,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  shape: BoxShape.rectangle,
+                  color: _tabController.index == 1
+                      ? Color(0xFFDDE9FF)
+                      : Colors.white,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'lib/images/deposit.png',
+                      width: 26,
+                      height: 22,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      "Deposits",
+                      style: TextStyle(
+                        color: _tabController.index == 1
+                            ? const Color(0xFF26467F)
+                            : Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(width: 2),
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.45,
+                height: 90,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  shape: BoxShape.rectangle,
+                  color: Colors.red,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'lib/images/deposit.png',
+                      width: 26,
+                      height: 22,
+                    ),
+                    const SizedBox(width: 8),
+                    const Text(
+                      "Safe Audit",
+                      style: TextStyle(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
-  }
-
-  void handleButtonPress(String option) {
-    setState(() {
-      selectedOption = option;
-    });
   }
 }

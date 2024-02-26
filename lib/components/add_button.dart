@@ -11,27 +11,23 @@ class AddButton extends StatefulWidget {
 class _AddButtonState extends State<AddButton> {
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 50,
-      right: 16,
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const NewSafeAudit(),
-              fullscreenDialog: true));
-        },
-        child: Container(
-          height: 48,
-          width: 48,
-          decoration: BoxDecoration(
-            color: const Color(0xFF26467F),
-            borderRadius: BorderRadius.circular(50),
-          ),
-          child: Image.asset(
-            'lib/images/add.png',
-            width: 26,
-            height: 22,
-          ),
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const NewSafeAudit(),
+            fullscreenDialog: true));
+      },
+      child: Container(
+        height: 48,
+        width: 48,
+        decoration: BoxDecoration(
+          color: const Color(0xFF26467F),
+          borderRadius: BorderRadius.circular(50),
+        ),
+        child: Image.asset(
+          'lib/images/add.png',
+          width: 26,
+          height: 22,
         ),
       ),
     );

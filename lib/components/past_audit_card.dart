@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
-class PastAudit extends StatelessWidget {
-  const PastAudit({super.key});
+class PastAuditCard extends StatelessWidget {
+  const PastAuditCard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("Past Audit"),
-    );
+    return const Text("Past Audit");
   }
 
 

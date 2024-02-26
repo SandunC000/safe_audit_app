@@ -42,9 +42,16 @@ class _CurrentAuditCardState extends State<CurrentAuditCard> {
                     style: const TextStyle(
                         color: Color(0xFF26467F), fontWeight: FontWeight.w600),
                   ),
-                  Text(widget.location),
                   Text(
-                      "Deposited on ${widget.depositDate} by ${widget.depositor}"),
+                    widget.location,
+                    style: const TextStyle(
+                      color: Color(0xFF5A5A5A),
+                    ),
+                  ),
+                  Text(
+                    "Deposited on ${widget.depositDate} by ${widget.depositor}",
+                    style: const TextStyle(color: Color(0xFF5A5A5A)),
+                  )
                 ],
               ),
               Column(
