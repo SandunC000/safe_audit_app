@@ -25,45 +25,44 @@ class _StartSafeAuditState extends State<StartSafeAudit> {
           title: 'Start Safe Audit',
         ),
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: Container(
-                        height: 35,
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        decoration: BoxDecoration(
-                          color: const Color(0x7676801F).withOpacity(0.12),
-                          borderRadius: BorderRadius.circular(25),
-                          border: Border.all(color: Colors.transparent),
-                        ),
-                        child: TabBar(
-                          tabs: const [
-                            Tab(text: "By Break Down"),
-                            Tab(text: "By Total"),
-                          ],
-                          labelColor: Colors.black,
-                          indicatorSize: TabBarIndicatorSize.tab,
-                          dividerColor: Colors.transparent,
-                          indicator: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(
-                                  color:
-                                      const Color(0x7676801F).withOpacity(0.12),
-                                  width: 5)),
-                        ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: Container(
+                      height: 35,
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      decoration: BoxDecoration(
+                        color: const Color(0x7676801F).withOpacity(0.12),
+                        borderRadius: BorderRadius.circular(25),
+                        border: Border.all(color: Colors.transparent),
+                      ),
+                      child: TabBar(
+                        tabs: const [
+                          Tab(text: "By Break Down"),
+                          Tab(text: "By Total"),
+                        ],
+                        labelColor: Colors.black,
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        dividerColor: Colors.transparent,
+                        indicator: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(25),
+                            border: Border.all(
+                                color:
+                                    const Color(0x7676801F).withOpacity(0.12),
+                                width: 5)),
                       ),
                     ),
                   ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.7,
-                    child: TabBarView(children: [
+                ),
+                Expanded(
+                  child: TabBarView(
+                    children: [
                       BreakDownTab(
                         onTotalChanged: (value) {
                           setState(() {
@@ -71,18 +70,22 @@ class _StartSafeAuditState extends State<StartSafeAudit> {
                           });
                         },
                       ),
-                      ByTotalTab(onTotalChanged: (value) {
-                        setState(() {
-                          byTotalEnteredTotal = value.toString();
-                        });
-                      }),
-                    ]),
+                      ByTotalTab(
+                        onTotalChanged: (value) {
+                          setState(() {
+                            byTotalEnteredTotal = value.toString();
+                          });
+                        },
+                      ),
+                    ],
                   ),
-                  SaveAuditButton(
-                    total: currentTabIndex == 0 ? breakDownTotal : double.parse(byTotalEnteredTotal),
-                  ),
-                ],
-              ),
+                ),
+                SaveAuditButton(
+                  total: currentTabIndex == 0
+                      ? breakDownTotal
+                      : double.parse(byTotalEnteredTotal),
+                ),
+              ],
             ),
           ),
         ),

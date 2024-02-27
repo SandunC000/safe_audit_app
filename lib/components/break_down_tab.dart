@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class BreakDownTab extends StatefulWidget {
   final Function(double) onTotalChanged;
-  const BreakDownTab({Key? key, required this.onTotalChanged}) : super(key: key);
+  const BreakDownTab({Key? key, required this.onTotalChanged})
+      : super(key: key);
 
   @override
   State<BreakDownTab> createState() => _BreakDownTabState();
@@ -40,12 +41,13 @@ class _BreakDownTabState extends State<BreakDownTab> {
         DataColumn(label: Text('Value')),
       ],
       rows: notesCoinsData.map<DataRow>((noteCoin) {
+        TextEditingController quantityController = TextEditingController(text: noteCoin['quantity'].toString());
+
         return DataRow(
           cells: [
             DataCell(Text('\$${noteCoin['value']}')),
             DataCell(
               Row(
-                // mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
                     icon: const Icon(Icons.remove),
@@ -54,24 +56,42 @@ class _BreakDownTabState extends State<BreakDownTab> {
                         if (noteCoin['quantity'] > 0) {
                           noteCoin['quantity']--;
                           widget.onTotalChanged(calculateTotal());
+                          quantityController.text =
+                              noteCoin['quantity'].toString();
                         }
                       });
                     },
                   ),
-                  Text('${noteCoin['quantity']}'),
+                  SizedBox(
+                    width: 50, // Adjust the width as needed
+                    child: TextField(
+                      controller: quantityController,
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        // Update the quantity when the user types in the TextField
+                        setState(() {
+                          noteCoin['quantity'] = int.parse(value);
+                          widget.onTotalChanged(calculateTotal());
+                        });
+                      },
+                    ),
+                  ),
                   IconButton(
                     icon: const Icon(Icons.add),
                     onPressed: () {
                       setState(() {
                         noteCoin['quantity']++;
                         widget.onTotalChanged(calculateTotal());
+                        quantityController.text =
+                            noteCoin['quantity'].toString();
                       });
                     },
                   ),
                 ],
               ),
             ),
-            DataCell(Text('\$${(noteCoin['value'] * noteCoin['quantity']).toStringAsFixed(2)}')),
+            DataCell(Text(
+                '\$${(noteCoin['value'] * noteCoin['quantity']).toStringAsFixed(2)}')),
           ],
         );
       }).toList(),
