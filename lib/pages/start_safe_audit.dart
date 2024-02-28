@@ -18,6 +18,14 @@ class _StartSafeAuditState extends State<StartSafeAudit> {
   String byTotalEnteredTotal = '';
   int currentTabIndex = 0;
 
+  double _parseTotal(String input) {
+    try {
+      return double.parse(input);
+    } catch (e) {
+      return 0.0; // Set a default value in case of error
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -42,6 +50,11 @@ class _StartSafeAuditState extends State<StartSafeAudit> {
                       border: Border.all(color: Colors.transparent),
                     ),
                     child: TabBar(
+                      onTap: (index) {
+                        setState(() {
+                          currentTabIndex = index;
+                        });
+                      },
                       tabs: const [
                         Tab(text: "By Break Down"),
                         Tab(text: "By Total"),
@@ -85,7 +98,7 @@ class _StartSafeAuditState extends State<StartSafeAudit> {
               SaveAuditButton(
                 total: currentTabIndex == 0
                     ? breakDownTotal
-                    : double.parse(byTotalEnteredTotal),
+                    : _parseTotal(byTotalEnteredTotal),
               ),
             ],
           ),

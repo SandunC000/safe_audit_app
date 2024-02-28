@@ -80,12 +80,17 @@ class _SafeAuditState extends State<SafeAudit>
                   ),
                 ),
               ],
-              bottom: const TabBar(
+              bottom: TabBar(
                 labelColor: Colors.white,
                 unselectedLabelColor: Colors.white,
                 indicatorColor: Colors.white,
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicatorWeight: 5,
+                onTap: (index) {
+                  setState(() {
+                    _tabController.index = index;
+                  });
+                },
                 tabs: [
                   Tab(text: 'Current Audit'),
                   Tab(text: 'Past Audit'),

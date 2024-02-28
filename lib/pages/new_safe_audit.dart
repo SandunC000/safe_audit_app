@@ -11,6 +11,8 @@ class NewSafeAudit extends StatefulWidget {
 }
 
 class _NewSafeAuditState extends State<NewSafeAudit> {
+  int selectedLocationIndex = -1;
+
   List<LocationInfo> locations = [
     LocationInfo(id: '300400', address: 'Jonestown Road'),
     LocationInfo(id: '331197', address: 'Metropolitan Ave'),
@@ -88,6 +90,16 @@ class _NewSafeAuditState extends State<NewSafeAudit> {
                       return LocationText(
                         id: locations[index].id,
                         address: locations[index].address,
+                        isSelected: selectedLocationIndex == index,
+                        onSelect: (isSelected) {
+                          setState(() {
+                            if(isSelected){
+                              selectedLocationIndex = index;
+                            } else {
+                              selectedLocationIndex = -1;
+                            }
+                          });
+                        },
                       );
                     }),
               ),

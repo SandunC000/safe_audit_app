@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 class LocationText extends StatefulWidget {
   final String id;
   final String address;
+  final bool isSelected;
+  final Function(bool) onSelect;
 
   const LocationText({
     super.key,
     required this.id,
     required this.address,
+    required this.isSelected,
+    required this.onSelect,
   });
 
   @override
@@ -22,9 +26,7 @@ class _LocationTextState extends State<LocationText> {
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: InkWell(
         onTap: () {
-          setState(() {
-            isSelected = !isSelected;
-          });
+          widget.onSelect(!widget.isSelected);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,12 +39,12 @@ class _LocationTextState extends State<LocationText> {
               height: 20,
               width: 20,
               decoration: BoxDecoration(
-                color: isSelected
+                color: widget.isSelected
                     ? const Color(0xFF26467F)
                     : const Color(0xFFEAF1FB),
                 borderRadius: BorderRadius.circular(50),
               ),
-              child: isSelected
+              child: widget.isSelected
                   ? Image.asset(
                       'lib/images/tick.png',
                       width: 12,
