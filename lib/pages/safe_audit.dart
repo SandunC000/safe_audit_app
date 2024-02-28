@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:safe_audit_app/components/current_audit_card.dart';
 import 'package:safe_audit_app/components/past_audit_card.dart';
 import 'package:safe_audit_app/components/add_button.dart';
@@ -92,8 +90,8 @@ class _SafeAuditState extends State<SafeAudit>
                   });
                 },
                 tabs: [
-                  Tab(text: 'Current Audit'),
-                  Tab(text: 'Past Audit'),
+                  const Tab(text: 'Current Audit'),
+                  const Tab(text: 'Past Audit'),
                 ],
               ),
             ),
@@ -126,8 +124,6 @@ class _SafeAuditState extends State<SafeAudit>
               );
             })),
       ),
-
-
       bottomNavigationBar: BottomAppBar(
         color: Colors.white,
         child: Row(
@@ -154,17 +150,15 @@ class _SafeAuditState extends State<SafeAudit>
                       height: 22,
                       color: _tabController.index == 1
                           ? const Color(0xFF26467F)
-                          : Color(0xFFA3A3A3),
+                          : const Color(0xFFA3A3A3),
                     ),
                     const SizedBox(width: 8),
-                    Text(
-                      "Deposits",
+                    Text("Deposits",
                         style: TextStyle(
                           color: _tabController.index == 1
                               ? const Color(0xFF26467F)
-                              : Color(0xFFA3A3A3),
-                        )
-                    ),
+                              : const Color(0xFFA3A3A3),
+                        )),
                   ],
                 ),
               ),

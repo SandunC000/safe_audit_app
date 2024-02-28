@@ -32,7 +32,7 @@ class _SaveAuditButtonState extends State<SaveAuditButton> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.only(left: 10),
+                margin: const EdgeInsets.only(left: 10),
                 height: 55,
                 width: MediaQuery.of(context).size.width * 0.5,
                 decoration: BoxDecoration(
@@ -47,7 +47,7 @@ class _SaveAuditButtonState extends State<SaveAuditButton> {
             ],
           ),
           Container(
-            margin: EdgeInsets.only(right: 10),
+            margin: const EdgeInsets.only(right: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -69,8 +69,8 @@ class _SaveAuditButtonState extends State<SaveAuditButton> {
                   children: [
                     Text(
                       "Total :${widget.total.toStringAsFixed(2)}",
-                      style:
-                          const TextStyle(fontSize: 16, color: Color(0xFF004385)),
+                      style: const TextStyle(
+                          fontSize: 16, color: Color(0xFF004385)),
                     ),
                   ],
                 ),

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:safe_audit_app/components/break_down_tab.dart';
 import 'package:safe_audit_app/components/by_total_tab.dart';
 import 'package:safe_audit_app/components/save_audit_button.dart';
@@ -66,8 +64,7 @@ class _StartSafeAuditState extends State<StartSafeAudit> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(25),
                           border: Border.all(
-                              color:
-                                  const Color(0x7676801F).withOpacity(0.12),
+                              color: const Color(0x7676801F).withOpacity(0.12),
                               width: 5)),
                     ),
                   ),

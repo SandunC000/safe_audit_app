@@ -93,7 +93,7 @@ class _NewSafeAuditState extends State<NewSafeAudit> {
                         isSelected: selectedLocationIndex == index,
                         onSelect: (isSelected) {
                           setState(() {
-                            if(isSelected){
+                            if (isSelected) {
                               selectedLocationIndex = index;
                             } else {
                               selectedLocationIndex = -1;

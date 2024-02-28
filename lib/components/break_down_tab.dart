@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 class BreakDownTab extends StatefulWidget {
   final Function(double) onTotalChanged;
-  const BreakDownTab({Key? key, required this.onTotalChanged})
-      : super(key: key);
+  const BreakDownTab({super.key, required this.onTotalChanged});
 
   @override
   State<BreakDownTab> createState() => _BreakDownTabState();
@@ -136,8 +135,8 @@ class _BreakDownTabState extends State<BreakDownTab> {
                   ),
                 ),
                 DataCell(
-                  Container(
-                    width: MediaQuery.of(context).size.width*0.2,
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.2,
                     child: Text(
                       '\$${(double.parse(noteCoin['value']) * noteCoin['quantity']).toStringAsFixed(2)}',
                       style: const TextStyle(color: Color(0xFF1A1A1A)),
